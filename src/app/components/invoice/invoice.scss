@@ -1,0 +1,115 @@
+$accent-gradient: linear-gradient(135deg, #0d9488 0%, #34d399 100%);
+
+// Header
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+// Sticky footer buttons
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+// Form padding accounts for fixed header + footer
+.content-area {
+  padding: 90px 2rem;
+  min-height: 100vh;
+
+  @media (min-width: 768px) {
+    padding: 90px 5rem;
+  }
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 12px;
+  align-items: center;
+
+  @media (max-width: 991.98px) {
+    grid-template-columns: 130px 1fr;
+  }
+}
+
+// Form controls
+.form-control,
+.form-select {
+  border-color: #dee2e6;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: #0d9488;
+    box-shadow: 0 0 0 0.2rem rgba(13, 148, 136, 0.25);
+  }
+
+  &[readonly] {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    cursor: not-allowed;
+  }
+}
+
+// Buttons
+.btn-primary {
+  background: $accent-gradient;
+  border: none;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+  }
+}
+
+.btn-secondary {
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.btn-outline-secondary {
+  color: #0d9488;
+  border-color: #0d9488;
+
+  &:hover {
+    background-color: #0d9488;
+    border-color: #0d9488;
+    color: white;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+  }
+}
+
+.btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+}
+
+// Toast
+.toast-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+}
+
+.table {
+   td, th {
+    white-space: nowrap;
+    min-width: 80px;
+  }
+  td:nth-child(1),
+  th:nth-child(1),
+  td:nth-child(9),
+  th:nth-child(9) {
+    min-width: 50px;
+    width: 50px;
+  }
+}

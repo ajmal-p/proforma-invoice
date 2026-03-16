@@ -1,0 +1,192 @@
+<div class="bg-white rounded-3 shadow-lg p-0">
+
+    <div class="top-bar bg-light py-3 px-5 border-bottom">
+        <div class="d-flex align-items-center gap-3">
+            <h2 class="m-0 fw-bold text-dark fs-5">Proforma Invoice</h2>
+        </div>
+    </div>
+
+    <form [formGroup]="invoiceForm" class="content-area">
+
+        <div class="mb-4 pb-4 border-bottom pt-4">
+            <div class="row g-4">
+
+                <div class="col-12 col-lg-4">
+                    <div class="input-grid">
+                        <label class="fw-bold">Doc ID:</label>
+                        <select class="form-select form-select-sm" formControlName="docId">
+                            <option value="">Select Doc ID</option>
+                            @for (option of selectOptions.docId; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+
+                        <label class="fw-bold">Vendor ID:</label>
+                        <select class="form-select form-select-sm" formControlName="vendorId">
+                            <option value="">Select Vendor ID</option>
+                            @for (option of selectOptions.vendorId; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+
+                        <label class="fw-bold">Buyer:</label>
+                        <select class="form-select form-select-sm" formControlName="buyer">
+                            <option value="">Select Buyer</option>
+                            @for (option of selectOptions.buyer; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+
+                        <label class="fw-bold">Payment Term:</label>
+                        <select class="form-select form-select-sm" formControlName="paymentTerm">
+                            <option value="">Select Payment Term</option>
+                            @for (option of selectOptions.paymentTerm; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="input-grid">
+                        <label class="fw-bold">Voucher Name:</label>
+                        <input type="text" class="form-control form-control-sm" formControlName="voucherName">
+
+                        <label class="fw-bold">Shipping Method:</label>
+                        <select class="form-select form-select-sm" formControlName="shippingMethod">
+                            <option value="">Select Shipping Method</option>
+                            @for (option of selectOptions.shippingMethod; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+
+                        <label class="fw-bold">Tax Group:</label>
+                        <select class="form-select form-select-sm" formControlName="taxGroup">
+                            <option value="">Select Tax Group</option>
+                            @for (option of selectOptions.taxGroup; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="input-grid">
+                        <label class="fw-bold">Date:</label>
+                        <input type="date" class="form-control form-control-sm" formControlName="date">
+
+                        <label class="fw-bold">Currency:</label>
+                        <select class="form-select form-select-sm" formControlName="currency">
+                            <option value="">Select Currency</option>
+                            @for (option of selectOptions.currency; track option.value) {
+                            <option [value]="option.value">{{ option.label }}</option>
+                            }
+                        </select>
+
+                        <label class="fw-bold">Due Date:</label>
+                        <input type="date" class="form-control form-control-sm" formControlName="dueDate">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mb-4 px-3">
+            <div class="table-responsive border rounded-2">
+                <table class="table mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="fw-bold small text-muted">#</th>
+                            <th class="fw-bold small text-muted">Product Code</th>
+                            <th class="fw-bold small text-muted">Description</th>
+                            <th class="fw-bold small text-muted">Unit</th>
+                            <th class="fw-bold small text-muted">Quantity</th>
+                            <th class="fw-bold small text-muted">Price</th>
+                            <th class="fw-bold small text-muted">Amount</th>
+                            <th class="fw-bold small text-muted">Cost Share</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="entries">
+                        @for (row of entries.controls; let i = $index; track row) {
+                        <tr [formGroupName]="i">
+                            <td class="fw-bold align-middle">{{ i + 1 }}</td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="productCode"></td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="description"></td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="unit"></td>
+                            <td><input type="text" class="form-control form-control-sm" appNumericInput formControlName="qty"></td>
+                            <td><input type="text" class="form-control form-control-sm" appNumericInput formControlName="price"></td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="amount" readonly></td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="distributedCost" readonly></td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteEntry(i)">&#10005;</button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-primary mt-3" (click)="appendEntry()">+ Add Row</button>
+        </div>
+
+        <div class="py-4 border-top">
+            <div class="row g-4">
+                <div class="col-12 col-lg">
+                    <div class="d-flex gap-3">
+                        <label class="fw-bold small flex-shrink-0">Note:</label>
+                        <textarea class="form-control" rows="4"
+                            placeholder="Add any additional notes or remarks here..."
+                            formControlName="notes"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-5">
+                    <div class="bg-light p-4 rounded-2 border">
+                        <div class="input-grid">
+                            <label class="fw-bold small">Subtotal:</label>
+                            <input type="number" class="form-control form-control-sm" formControlName="subtotal" readonly>
+
+                            <label class="fw-bold small">Total Quantity:</label>
+                            <input type="number" class="form-control form-control-sm" formControlName="totalQuantity" readonly>
+
+                            <label class="fw-bold small">Tax:</label>
+                            <input type="number" class="form-control form-control-sm" formControlName="tax" readonly>
+
+                            <label class="fw-bold small">Total Amount:</label>
+                            <input type="number" class="form-control form-control-sm" formControlName="totalAmount" readonly>
+
+                            <label class="fw-bold small">Total Expense:</label>
+                            <input type="text" class="form-control form-control-sm" formControlName="totalExpense" appNumericInput>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="bottom-bar bg-light border-top d-flex gap-2 justify-content-between flex-wrap px-5 py-3">
+        <div class="d-flex gap-2">
+            <button type="reset" class="btn btn-outline-secondary px-4" (click)="resetForm()">Clear</button>
+            <button type="button" class="btn btn-primary px-4" (click)="submitForm()">Save</button>
+        </div>
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-secondary px-4">Close</button>
+        </div>
+    </div>
+
+    @if (toastVisible()) {
+    <div class="toast-wrapper">
+        <div class="toast show align-items-center text-white bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    Invoice data has been saved successfully.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="dismissToast()"></button>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>

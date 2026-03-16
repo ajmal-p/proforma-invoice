@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/User/Downloads/proforma-invoice/proforma-invoice/src -type f \\\\\\(-name *.ts -o -name *.html -o -name *.css -o -name *.scss \\\\\\))",
+      "Bash(rm -rf src/app/components/invoice)",
+      "Bash(rm -f src/app/directive/numberonly.ts src/app/directive/numberonly.spec.ts)",
+      "Bash(rm -f src/app/services/invoice-service.ts src/app/services/invoice-service.spec.ts)",
+      "Bash(rm -f src/app/models/invoice-model.ts src/app/models/dropdown-options.ts)",
+      "Bash(mv src/app/components/billing-form/billing-form.ts src/app/components/invoice/invoice.ts)",
+      "Bash(mv src/app/components/billing-form/billing-form.html src/app/components/invoice/invoice.html)",
+      "Bash(mv src/app/components/billing-form/billing-form.scss src/app/components/invoice/invoice.scss)",
+      "Bash(mv src/app/components/billing-form/billing-form.spec.ts src/app/components/invoice/invoice.spec.ts)",
+      "Bash(rm -rf src/app/components/billing-form)"
+    ]
+  }
+}
