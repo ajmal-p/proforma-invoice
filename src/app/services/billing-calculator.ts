@@ -9,7 +9,7 @@ export class BillingCalculator {
   distributeExpenses(items: LineItem[], totalExpense: number, grandTotal: number): LineItem[] {
     return items.map(d => ({
       ...d,
-      distributedCost: grandTotal === 0 ? 0 : Number(((d.amount / grandTotal) * totalExpense).toFixed(2))
+      allocatedExpense: grandTotal === 0 ? 0 : Number(((d.amount / grandTotal) * totalExpense).toFixed(2))
     }));
   }
 

@@ -1,20 +1,20 @@
 export interface LineItem {
-  productCode: string;
+  item: string;
   description: string;
   unit: string;
   qty: number;
   price: number;
   amount: number;
-  distributedCost: number;
+  allocatedExpense: number;
 }
 
 
 export interface EntryRow {
-  productCode: string;
+  item: string;
   description: string;
   unit: string;
   qty: number;
   price: number;
   amount: number;
-  distributedCost: number;
+  allocatedExpense: number;
 }

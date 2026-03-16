@@ -60,13 +60,13 @@ export class Invoice implements OnInit {
 
   appendEntry(): void {
     const row = this.fb.group({
-      productCode: ['ITEM001'],
+      item: ['ITEM001'],
       description: ['Default Item'],
       unit: ['BAG'],
       qty: [null, [Validators.min(0)]],
       price: [null, [Validators.min(0)]],
       amount: [{ value: 0, disabled: true }],
-      distributedCost: [{ value: 0, disabled: true }]
+      allocatedExpense: [{ value: 0, disabled: true }]
     });
 
     this.entries.push(row);
@@ -107,7 +107,7 @@ export class Invoice implements OnInit {
 
       ctrl.get('amount')?.setValue(amount, { emitEvent: false });
 
-      return { ...ctrl.value, amount, distributedCost: 0 };
+      return { ...ctrl.value, amount, allocatedExpense: 0 };
     });
 
     const totalExpense = Number(this.invoiceForm.get('totalExpense')?.value) || 0;
@@ -115,8 +115,8 @@ export class Invoice implements OnInit {
     const distributed = this.calculator.distributeExpenses(entryData, totalExpense, subtotal);
     distributed.forEach((row, i) => {
       this.entries.at(i)
-        .get('distributedCost')
-        ?.setValue(row.distributedCost, { emitEvent: false });
+        .get('allocatedExpense')
+        ?.setValue(row.allocatedExpense, { emitEvent: false });
     });
 
     this.invoiceForm.patchValue(
@@ -147,14 +147,14 @@ export class Invoice implements OnInit {
         totalAmount: raw.totalAmount,
         totalExpense: raw.totalExpense,
       },
-      itemEntryInformation: raw.entries.map((item: EntryRow) => ({
-        productCode: item.productCode,
+      detailInformation: raw.entries.map((item: EntryRow) => ({
+        item: item.item,
         description: item.description,
         unit: item.unit,
         qty: item.qty,
         price: item.price,
         amount: item.amount,
-        distributedCost: item.distributedCost,
+        allocatedExpense: item.allocatedExpense,
       })),
     };
 

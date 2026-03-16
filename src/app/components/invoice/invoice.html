@@ -49,7 +49,7 @@
 
                 <div class="col-12 col-lg-4">
                     <div class="input-grid">
-                        <label class="fw-bold">Voucher Name:</label>
+                        <label class="fw-bold">Voucher Number:</label>
                         <input type="text" class="form-control form-control-sm" formControlName="voucherName">
 
                         <label class="fw-bold">Shipping Method:</label>
@@ -97,13 +97,13 @@
                     <thead class="table-light">
                         <tr>
                             <th class="fw-bold small text-muted">#</th>
-                            <th class="fw-bold small text-muted">Product Code</th>
+                            <th class="fw-bold small text-muted">Item Code</th>
                             <th class="fw-bold small text-muted">Description</th>
                             <th class="fw-bold small text-muted">Unit</th>
                             <th class="fw-bold small text-muted">Quantity</th>
                             <th class="fw-bold small text-muted">Price</th>
                             <th class="fw-bold small text-muted">Amount</th>
-                            <th class="fw-bold small text-muted">Cost Share</th>
+                            <th class="fw-bold small text-muted">Expense</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -111,13 +111,13 @@
                         @for (row of entries.controls; let i = $index; track row) {
                         <tr [formGroupName]="i">
                             <td class="fw-bold align-middle">{{ i + 1 }}</td>
-                            <td><input type="text" class="form-control form-control-sm" formControlName="productCode"></td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="item"></td>
                             <td><input type="text" class="form-control form-control-sm" formControlName="description"></td>
                             <td><input type="text" class="form-control form-control-sm" formControlName="unit"></td>
                             <td><input type="text" class="form-control form-control-sm" appNumericInput formControlName="qty"></td>
                             <td><input type="text" class="form-control form-control-sm" appNumericInput formControlName="price"></td>
                             <td><input type="text" class="form-control form-control-sm" formControlName="amount" readonly></td>
-                            <td><input type="text" class="form-control form-control-sm" formControlName="distributedCost" readonly></td>
+                            <td><input type="text" class="form-control form-control-sm" formControlName="allocatedExpense" readonly></td>
                             <td class="text-center align-middle">
                                 <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteEntry(i)">&#10005;</button>
                             </td>
@@ -152,7 +152,7 @@
                             <label class="fw-bold small">Tax:</label>
                             <input type="number" class="form-control form-control-sm" formControlName="tax" readonly>
 
-                            <label class="fw-bold small">Total Amount:</label>
+                            <label class="fw-bold small">Total:</label>
                             <input type="number" class="form-control form-control-sm" formControlName="totalAmount" readonly>
 
                             <label class="fw-bold small">Total Expense:</label>
